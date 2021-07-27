@@ -1,9 +1,10 @@
 /*
 ADU_MT_PROMOTIONAL_METRICS
 Purpose
-    - Promotional metrics data at rep level for field suggestions.
+    - Promotional metrics on customer-rep level for field suggestions.
 Change Log
-    - 2021-07-14 - vshetiya - Created
+    - 2021-07-15 - vshetiya - Created
+	- 2021-07-21 - vshetiya - Updated the code to include 'AD MSL' in Field Force Name filter and change the country filter to caps
 
 */
 
@@ -21,7 +22,7 @@ AS
         FROM 
             __SNOWFLAKE_NGDW_DB__.INTEGRATED.VCR_SF_USER_SCD1 salesforce_user
         WHERE 
-            UPPER(salesforce_user.COUNTRY) IN ('US','United States')
+            UPPER(salesforce_user.COUNTRY) IN ('US','UNITED STATES')
             AND salesforce_user.ISACTIVE > 0
     ),
     call_activity_fact AS 
@@ -33,12 +34,12 @@ AS
             ACCOUNT_TYPE,
             EMPLOYEE_LOGIN,
             EMPLOYEE_ID,
-            FIRST_PRODUCT PRODUCT_NAME
+            'ADUHELM' AS PRODUCT_NAME
         FROM 
             __SNOWFLAKE_NGCA_DB__.CIM.FIELD_CALL_ACTIVITY_FACT  
         WHERE (CALL_START_DATE) <= (SYSDATE()) 
-        AND   UPPER(FIRST_PRODUCT) = 'ADUHELM' 
-        AND   UPPER(FIELD_FORCE_NAME) IN ('AD','AD-AAL','AD-ADRM','AD-MSL','AD-TBM')
+        AND   (UPPER(FIRST_PRODUCT) = 'ADUHELM' OR UPPER(SECOND_PRODUCT) = 'ADUHELM' OR UPPER(THIRD_PRODUCT) = 'ADUHELM' OR UPPER(FOURTH_PRODUCT) = 'ADUHELM' OR UPPER(FIFTH_PRODUCT) = 'ADUHELM')
+        AND   UPPER(FIELD_FORCE_NAME) IN ('AD','AD-AAL','AD-ADRM','AD-MSL','AD-TBM','AD MSL')
     )
     SELECT 
         call_activity_fact.CUSTOMER_ID,
