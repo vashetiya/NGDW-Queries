@@ -73,7 +73,7 @@ FROM (
 	                                          OR UPPER(FOURTH_PRODUCT) = 'ADUHELM' OR UPPER(FIFTH_PRODUCT) = 'ADUHELM')
         AND UPPER(FIELD_FORCE_NAME) IN ('AD','AD-AAL','AD-ADRM','AD-MSL','AD-TBM','AD MSL')
         
-     )call_activity_fact
+     ) call_activity_fact
 WHERE  UPPER(ACCOUNT_TYPE) = 'HCP'
 GROUP BY CUSTOMER_ID,PRODUCT_NAME
 
