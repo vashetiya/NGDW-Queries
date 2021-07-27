@@ -240,7 +240,8 @@ WHERE
     AND (
          UPPER(call_activity_fact.FIRST_PRODUCT) = 'ADUHELM' OR UPPER(call_activity_fact.SECOND_PRODUCT) = 'ADUHELM' OR 
          UPPER(call_activity_fact.THIRD_PRODUCT) = 'ADUHELM' OR UPPER(call_activity_fact.FOURTH_PRODUCT) ='ADUHELM'
-        )
+         OR UPPER(call_activity_fact.FIFTH_PRODUCT) = 'ADUHELM'
+		 )
 	AND UPPER(call_activity_fact.FIELD_FORCE_NAME) IN ('AD','AD-AAL','AD-ADRM','AD-MSL','AD-TBM','AD MSL')	
 
 GROUP BY
@@ -327,4 +328,3 @@ GROUP BY
 
 );  
 
-GRANT SELECT ON __SNOWFLAKE_NGCA_DB__.MCE.ADU_MT_HCP_HCO_INTERACTIONS TO ROLE IHUB_QRY_RL; 
