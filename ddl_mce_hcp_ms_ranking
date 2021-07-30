@@ -44,6 +44,8 @@ SELECT
 			     ELSE UPPER(party_dim.PARTY_CLASS) END AS PARTY_CLASS, 
             CASE WHEN party_dim.PARTY_CLASS = 'HCP' THEN 1 ELSE 0 END AS HCP_FLAG, 
             web_lead_source.WEB_LEAD_SOURCE,
+			first_source.LEAD_SOURCE,
+			first_source.LEAD_SOURCE_DATE,
             ms_account_dim.DECILE_RATING AS HCP_DECILE,
             CASE WHEN ms_account_dim.DECILE_RATING IN ('10','9','8') THEN '8-10 DECILE' 
                  WHEN ms_account_dim.DECILE_RATING IN ('7','6','5') THEN '5-7 DECILE' 
